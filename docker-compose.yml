@@ -1,0 +1,16 @@
+services:
+  #GLPI Container
+  glpi:
+    build: .docker/app
+    container_name: ${INSTANCE_NAME}.glpi
+    ports:
+      - "${WEBSERVER_PORT}:80"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./glpi/:/var/www/html/glpi
+    environment:
+      - TIMEZONE=Europe/Rome
+      - VERSION_GLPI=${VERSION_GLPI}
+      - CRON_MINUTES=${CRON_MINUTES}
+    restart: always
